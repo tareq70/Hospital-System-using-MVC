@@ -2,14 +2,102 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+
+<style>
+    /* ===== Sidebar Container ===== */
+    .sidebar-nav {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        list-style: none;
+        max-width: 260px;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+        /* ===== Sidebar Items ===== */
+        .sidebar-nav .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .sidebar-nav .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: #2f3640;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background-color: rgba(245, 245, 245, 0.6);
+            position: relative;
+        }
+
+            /* Shape effect on hover */
+            .sidebar-nav .nav-link::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 5px;
+                border-radius: 15px 0 0 15px;
+                background-color: transparent;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar-nav .nav-link:hover {
+                background-color: #40739e; /* هادي وجذاب */
+                color: #fff;
+                transform: translateX(5px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            }
+
+                .sidebar-nav .nav-link:hover::before {
+                    background-color: #ff6b81; /* shape color عند hover */
+                }
+
+            /* Active link style */
+            .sidebar-nav .nav-link.active {
+                background-color: #2f3640;
+                color: #fff;
+            }
+
+                .sidebar-nav .nav-link.active::before {
+                    background-color: #ff4757;
+                }
+
+            /* Icon placeholder (لو حبيت تضيف أيقونات قدام النصوص) */
+            .sidebar-nav .nav-link i {
+                margin-right: 10px;
+            }
+
+  
+</style>
+
+<ul class="sidebar-nav">
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext) active" id="profile" asp-page="./Index"><i class="bi bi-person-circle"></i> Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email"><i class="bi bi-envelope"></i> Email</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword"><i class="bi bi-key"></i> Password</a>
+    </li>
     @if (hasExternalLogins)
     {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+        <li class="nav-item">
+            <a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins"><i class="bi bi-box-arrow-in-right"></i> External logins</a>
+        </li>
     }
-    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication"><i class="bi bi-shield-lock"></i> Two-factor authentication</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData"><i class="bi bi-file-person"></i> Personal data</a>
+    </li>
 </ul>
