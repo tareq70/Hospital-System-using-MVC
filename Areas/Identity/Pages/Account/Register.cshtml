@@ -4,89 +4,193 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
+    /* ===== Page Background ===== */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        overflow-x: hidden;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="container d-flex justify-content-center align-items-center vh-100">
-            <div class="card shadow-lg border-0 rounded-4" style="width: 28rem;">
-                <div class="card-body p-5">
-                    <h3 class="text-center mb-4 fw-bold">Create Account</h3>
-                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+    /* ===== Center Container ===== */
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
 
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Email" class="form-control rounded-3" placeholder="name@example.com" autocomplete="username" aria-required="true" />
-                            <label asp-for="Input.Email">Email</label>
-                            <span asp-validation-for="Input.Email" class="text-danger small"></span>
-                        </div>
+    /* ===== Glassmorphism Card ===== */
+    .register-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+        padding: 40px 30px;
+        max-width: 400px;
+        width: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
 
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Password" type="password" class="form-control rounded-3" placeholder="password" autocomplete="new-password" aria-required="true" />
-                            <label asp-for="Input.Password">Password</label>
-                            <span asp-validation-for="Input.Password" class="text-danger small"></span>
-                        </div>
+        .register-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.45);
+        }
 
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control rounded-3" placeholder="Confirm password" autocomplete="new-password" aria-required="true" />
-                            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
-                        </div>
+        /* ===== Headings ===== */
+        .register-card h3 {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
 
-                        <div class="form-floating mb-4">
-                            <input asp-for="Input.PhoneNumber" class="form-control rounded-3" placeholder="010123456789" autocomplete="tel" aria-required="true" />
-                            <label asp-for="Input.PhoneNumber">Phone Number</label>
-                            <span asp-validation-for="Input.PhoneNumber" class="text-danger small"></span>
-                        </div>
+        .register-card p {
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 30px;
+        }
 
-                        <button id="registerSubmit" type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-semibold">
-                            Register
-                        </button>
-                    </form>
+    /* ===== Form Controls ===== */
+    .form-floating > input {
+        border-radius: 12px;
+        height: 50px;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        background: rgba(255,255,255,0.25);
+        border: none;
+        color: #fff;
+        transition: 0.3s ease;
+    }
 
-                    <div class="text-center mt-4">
-                        <p class="mb-0">
-                            Already have an account?
-                            <a asp-area="Identity" asp-page="/Account/Login" class="fw-semibold text-decoration-none">Login</a>
-                        </p>
-                    </div>
-                </div>
+        .form-floating > input:focus {
+            background: rgba(255,255,255,0.45);
+            box-shadow: 0 0 8px rgba(255,255,255,0.5);
+            outline: none;
+        }
+
+    .form-floating > label {
+        font-weight: 500;
+        color: #fff;
+    }
+
+    /* ===== Buttons ===== */
+    .btn-modern {
+        width: 100%;
+        padding: 12px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        color: #fff;
+        background-size: 200% 200%;
+        transition: all 0.3s ease;
+    }
+
+    /* Animated Gradient Button */
+    .btn-register {
+        background-image: linear-gradient(45deg, #ff6a00, #ee0979, #ff6a00);
+        background-size: 300% 300%;
+        animation: gradient 4s ease infinite;
+    }
+
+        .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+        }
+
+    
+
+    /* ===== Text Links ===== */
+    .text-link {
+        color: #ffd700;
+        text-decoration: none;
+        transition: all 0.25s ease;
+    }
+
+        .text-link:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+    
+</style>
+
+<div class="register-container">
+    <div class="register-card">
+        <h3>Create Account</h3>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" placeholder="Email" autocomplete="username" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger small"></span>
             </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password" autocomplete="new-password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger small"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" autocomplete="new-password" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="010123456789" autocomplete="tel" />
+                <label asp-for="Input.PhoneNumber">Phone Number</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn-modern btn-register">Register</button>
+        </form>
+
+        <div class="text-center mt-4">
+            <p class="mb-0">
+                Already have an account? <a asp-area="Identity" asp-page="/Account/Login" class="text-link fw-semibold">Login</a>
+            </p>
         </div>
 
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+        <hr />
+
+        @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+        {
+            <div>
+                @foreach (var provider in Model.ExternalLogins!)
                 {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
+                    <form method="post" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                        <button type="submit" name="provider" value="@provider.Name" class="external-btn">
+                            Register using @provider.DisplayName
+                        </button>
                     </form>
                 }
-            }
-        </section>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted small">
+                No external login providers configured. <a href="https://go.microsoft.com/fwlink/?LinkID=532715" class="text-link">Learn more</a>.
+            </p>
+        }
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Floating effect for inputs
+        document.querySelectorAll('.form-floating input').forEach(input => {
+            input.addEventListener('focus', () => input.parentElement.classList.add('focused'));
+            input.addEventListener('blur', () => input.parentElement.classList.remove('focused'));
+        });
+    </script>
 }
