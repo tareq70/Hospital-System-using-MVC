@@ -1,55 +1,124 @@
 ﻿@using Microsoft.AspNetCore.Identity
-
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
 <style>
-    .modern-btn {
-        border-radius: 25px;         
-        padding: 6px 16px;
-        font-weight: 500;
-        transition: all 0.3s ease;  
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15); 
+    .nav-auth-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        padding: 8px 20px;
+        border-radius: 40px;
+        border: 1px solid rgba(255,255,255,0.25);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transition: 0.3s ease;
     }
 
-    .modern-btn:hover {
-        transform: translateY(-2px); 
-        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    .auth-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 25px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        color: #fff !important;
+        text-decoration: none;
+        transition: all 0.25s ease;
+    }
+
+        .auth-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+    .auth-login {
+        background: linear-gradient(135deg, #0077ff, #00c6ff);
+    }
+
+    .auth-register {
+        background: linear-gradient(135deg, #28a745, #62d86c);
+    }
+
+    .auth-manage {
+        background: linear-gradient(135deg, #6a5af9, #c05bff);
+    }
+
+    .auth-logout {
+        background: linear-gradient(135deg, #ff4b4b, #ff8b8b);
+    }
+
+    /* Hover Effect */
+    .auth-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.25);
     }
 </style>
 
 <ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item me-2">
-            <a id="manage" class="btn btn-primary modern-btn"
-               asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                <i class="bi bi-person-circle"></i> Hello @UserManager.GetUserName(User)!
-            </a>
-        </li>
-        <li class="nav-item">
-            <form id="logoutForm" class="form-inline d-inline"
-                  asp-area="Identity"
-                  asp-page="/Account/Logout"
-                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"
-                  onsubmit="return confirm('Do you want to go out?');">
-                <button id="logout" type="submit" class="btn btn-danger modern-btn">
-                    <i class="bi bi-box-arrow-right"></i> Logout
-                </button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item me-2">
-            <a class="btn btn-success modern-btn" id="register" asp-area="Identity" asp-page="/Account/Register">
-                <i class="bi bi-pencil-square"></i> Register
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="btn btn-info modern-btn text-white" id="login" asp-area="Identity" asp-page="/Account/Login">
-                <i class="bi bi-box-arrow-in-right"></i> Login
-            </a>
-        </li>
-    }
+    <li class="nav-item">
+        <div class="nav-auth-container">
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <!-- Manage Profile -->
+                <a asp-area="Identity" asp-page="/Account/Manage/Index"
+                   class="auth-btn auth-manage">
+                    <!-- User Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 24 24">
+                        <circle cx="12" cy="7" r="4"></circle>
+                        <path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
+                    </svg>
+                    Hello, @UserManager.GetUserName(User)!
+                </a>
+
+                <!-- Logout -->
+                <form asp-area="Identity" asp-page="/Account/Logout"
+                      asp-route-returnUrl="@Url.Action("Index", "Home")"
+                      class="d-inline" onsubmit="return confirmLogout();">
+                    <button type="submit" class="auth-btn auth-logout">
+                        <!-- Logout Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 24 24">
+                            <path d="M15 3h4v18h-4"></path>
+                            <path d="M10 17l5-5-5-5"></path>
+                        </svg>
+                        Logout
+                    </button>
+                </form>
+            }
+            else
+            {
+                <!-- Register -->
+                <a asp-area="Identity" asp-page="/Account/Register"
+                   class="auth-btn auth-register">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 24 24">
+                        <circle cx="12" cy="7" r="4"></circle>
+                        <path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
+                        <path d="M18 2l4 4"></path>
+                        <path d="M22 2l-4 4"></path>
+                    </svg>
+                    Register
+                </a>
+
+                <!-- Login -->
+                <a asp-area="Identity" asp-page="/Account/Login"
+                   class="auth-btn auth-login">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 24 24">
+                        <path d="M9 3H4v18h5"></path>
+                        <path d="M14 17l5-5-5-5"></path>
+                    </svg>
+                    Login
+                </a>
+            }
+        </div>
+    </li>
 </ul>
+
+<script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to logout?");
+    }
+</script>
