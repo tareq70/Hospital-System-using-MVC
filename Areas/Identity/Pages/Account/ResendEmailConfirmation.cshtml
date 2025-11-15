@@ -1,22 +1,115 @@
 ﻿@page
 @model ResendEmailConfirmationModel
 @{
-    ViewData["Title"] = "Resend email confirmation";
+    ViewData["Title"] = "Resend Email Confirmation";
 }
 
-<h1>@ViewData["Title"]</h1>
-<h2>Enter your email.</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<style>
+    /* ===== Page Background ===== */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f6fa;
+    }
+
+    /* ===== Center Container ===== */
+    .resend-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    /* ===== Glassmorphism Card ===== */
+    .resend-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 40px 30px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        color: #333;
+        border: 1px solid rgba(200,200,200,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .resend-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        /* ===== Headings ===== */
+        .resend-card h3 {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2f3640;
+        }
+
+        .resend-card h2 {
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: #57606f;
+        }
+
+    /* ===== Form Controls ===== */
+    .form-floating > input {
+        border-radius: 10px;
+        height: 50px;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    .form-floating > label {
+        font-weight: 500;
+    }
+
+    /* ===== Buttons ===== */
+    .btn-modern {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        color: #fff;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        background-color: #40739e;
+    }
+
+        .btn-modern:hover {
+            background-color: #2f3640;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+    /* ===== Validation Summary ===== */
+    .text-danger {
+        margin-bottom: 15px;
+    }
+
+    
+</style>
+
+<div class="resend-container">
+    <div class="resend-card">
+        <h3>Resend Email Confirmation</h3>
+        <h2>Enter your email</h2>
         <form method="post">
             <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email" class="form-label"></label>
+                <input asp-for="Input.Email" class="form-control" placeholder="name@example.com" aria-required="true" />
+                <label asp-for="Input.Email" class="form-label">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Resend</button>
+
+            <button type="submit" class="btn-modern">Resend</button>
         </form>
     </div>
 </div>

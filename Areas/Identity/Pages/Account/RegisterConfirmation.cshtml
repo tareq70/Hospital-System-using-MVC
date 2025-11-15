@@ -1,16 +1,102 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Register Confirmation";
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    <p>
-        Please check your email to confirm your account.
-    </p>
-
-
+<style>
+    /* ===== Page Background ===== */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f6fa; /* لون خلفية هادي */
     }
-}
 
+    /* ===== Center Container ===== */
+    .confirm-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    /* ===== Glassmorphism Card ===== */
+    .confirm-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 40px 30px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        color: #333;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(200,200,200,0.3);
+    }
+
+        .confirm-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        /* ===== Headings ===== */
+        .confirm-card h3 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2f3640;
+        }
+
+    /* ===== Message ===== */
+    .confirm-message {
+        background: rgba(240, 240, 240, 0.6);
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        color: #2f3640;
+        font-weight: 500;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+        transition: background 0.3s ease;
+    }
+
+        .confirm-message:hover {
+            background: rgba(230, 230, 230, 0.7);
+        }
+
+    /* ===== Buttons ===== */
+    .btn-modern {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        color: #fff;
+        margin-top: 25px;
+        transition: all 0.3s ease;
+        background-color: #40738e; 
+    }
+
+        .btn-modern:hover {
+            background-color: #2f3640;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+
+</style>
+
+<div class="confirm-container">
+    <div class="confirm-card">
+        <h3>Register Confirmation</h3>
+
+        <div class="confirm-message">
+            Please check your email to confirm your account.
+        </div>
+
+        <a asp-page="/Account/Login" class="btn-modern">Go to Login</a>
+    </div>
+</div>
