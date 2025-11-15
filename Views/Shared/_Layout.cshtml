@@ -62,12 +62,22 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - ITI_Training_Hospital_System -
-            <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer mt-auto py-3 border-top" style="background-color: #343a40;">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span style="color: #e9ecef;">
+                © 2025 - Hospital System
+            </span>
+
+            <a asp-controller="Home" asp-action="Privacy"
+               class="text-decoration-none"
+               style="color: #e9ecef;">
+                Privacy Policy
+            </a>
         </div>
     </footer>
+
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
