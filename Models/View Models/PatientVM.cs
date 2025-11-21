@@ -11,13 +11,13 @@ namespace ITI_Training_Hospital_System.Models.View_Models
 
         [Required(ErrorMessage = "Please enter patient name")]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [StringLength(200)]
-        public string Diagnosis { get; set; }
+        public string Diagnosis { get; set; } = string.Empty;
 
         [StringLength(200)]
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
         [Required]
         public int Hos_id { get; set; }
 

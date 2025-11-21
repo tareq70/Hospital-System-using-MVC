@@ -35,22 +35,27 @@ namespace ITI_Training_Hospital_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                var patient = new Models.Entites.Patient
+                var patient = new Patient
                 {
                     Name = patientViewModel.Name,
                     Diagnosis = patientViewModel.Diagnosis,
                     Address = patientViewModel.Address,
                     Hospital_id = patientViewModel.Hos_id,
                     Hospital = _dbContext.Hospitals.FirstOrDefault(h => h.Id == patientViewModel.Hos_id)
-
                 };
+
                 _dbContext.Patients.Add(patient);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Hospitals = new SelectList(_dbContext.Hospitals.ToList(), "Id", "Name");
+
+            // ModelState غير صحيح → رجع نفس الصفحة
+            ViewBag.Hospitals = _dbContext.Hospitals.ToList();
+            ViewBag.ErrorMessage = "The data you entered is invalid. Please correct the fields.";
+
             return View(patientViewModel);
         }
+
 
         [HttpGet]
         public IActionResult Update(int id)

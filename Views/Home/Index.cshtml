@@ -6,6 +6,7 @@
     <h1 class="text-center mb-4 display-4">Hospital Management System</h1>
     <p class="text-center lead mb-5">Manage Patients, Doctors, and Hospitals efficiently</p>
 
+    <!-- Dashboard Cards -->
     <div class="row g-4">
         <!-- Hospitals Card -->
         <div class="col-md-4">
@@ -107,6 +108,77 @@
             </div>
         </div>
     </div>
+
+    <!-- Features Section -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Our Hospital Features</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm feature-card p-3 text-center">
+                    <i class="bi bi-heart-pulse-fill display-4 text-danger mb-3"></i>
+                    <h5 class="card-title">24/7 Emergency</h5>
+                    <p class="card-text">Round-the-clock emergency services with highly trained staff.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm feature-card p-3 text-center">
+                    <i class="bi bi-person-badge-fill display-4 text-primary mb-3"></i>
+                    <h5 class="card-title">Expert Doctors</h5>
+                    <p class="card-text">Highly qualified specialists in various medical fields.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm feature-card p-3 text-center">
+                    <i class="bi bi-hospital-fill display-4 text-success mb-3"></i>
+                    <h5 class="card-title">Modern Facilities</h5>
+                    <p class="card-text">State-of-the-art medical technology for accurate diagnosis.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm feature-card p-3 text-center">
+                    <i class="bi bi-beaker-fill display-4 text-info mb-3"></i>
+                    <h5 class="card-title">Lab Tests</h5>
+                    <p class="card-text">Comprehensive laboratory tests with fast results.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm feature-card p-3 text-center">
+                    <i class="bi bi-capsule display-4 text-warning mb-3"></i>
+                    <h5 class="card-title">Pharmacy Services</h5>
+                    <p class="card-text">In-house pharmacy providing essential medications.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm feature-card p-3 text-center">
+                    <i class="bi bi-phone display-4 text-secondary mb-3"></i>
+                    <h5 class="card-title">Telemedicine</h5>
+                    <p class="card-text">Remote consultation services for patient convenience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="mt-5">
+        <h3 class="mb-4">Recent Activities</h3>
+        <ul class="list-group shadow-sm">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                New Patient Added: John Doe
+                <span class="badge bg-primary rounded-pill">5 min ago</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Doctor Assigned: Dr. Smith
+                <span class="badge bg-success rounded-pill">10 min ago</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Hospital Updated: City Hospital
+                <span class="badge bg-warning text-dark rounded-pill">30 min ago</span>
+            </li>
+        </ul>
+    </div>
+
+    
+
 </div>
 
 @section Styles {
@@ -115,6 +187,7 @@
             background: linear-gradient(120deg, #f0f8ff, #e6f7ff);
         }
 
+        /* Dashboard Cards */
         .dashboard-card {
             border: none;
             border-radius: 15px;
@@ -127,6 +200,7 @@
                 box-shadow: 0 15px 25px rgba(0,0,0,0.3);
             }
 
+        /* Gradient Colors */
         .bg-gradient-primary {
             background: linear-gradient(45deg, #007bff, #00c6ff);
         }
@@ -139,11 +213,13 @@
             background: linear-gradient(45deg, #ffc107, #ffec99);
         }
 
-        .guideline-card {
+        /* Guideline Cards */
+        .guideline-card, .feature-card {
             transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
         }
 
-            .guideline-card:hover {
+            .guideline-card:hover, .feature-card:hover {
                 transform: translateY(-5px) scale(1.02);
                 box-shadow: 0 8px 15px rgba(0,0,0,0.2);
             }
@@ -154,23 +230,8 @@
             animation: bounce 2s infinite;
         }
 
-        keyframes bounce {
-            0%, 20%, 50%, 80%, 100%
 
-        {
-            transform: translateY(0);
-        }
-
-        40% {
-            transform: translateY(-10px);
-        }
-
-        60% {
-            transform: translateY(-5px);
-        }
-
-        }
-
+        /* Action Buttons */
         .action-btn {
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -184,7 +245,9 @@
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.2.0/countUp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // CountUp Animation
         document.addEventListener("DOMContentLoaded", function() {
             var counters = document.querySelectorAll('.count');
             counters.forEach(function(counter) {
@@ -192,5 +255,28 @@
                 if (!countUp.error) countUp.start();
             });
         });
+
+        // Chart.js - Hospital Statistics
+        const ctx = document.getElementById('hospitalChart').getContext('2d');
+        const hospitalChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['City Hospital', 'Central Hospital', 'Al-Madina Hospital', 'Royal Hospital'], // أسماء المستشفيات
+                datasets: [{
+                    label: 'Number of Patients',
+                    data: [120, 90, 75, 60], // مثال: عدد المرضى لكل مستشفى
+                    backgroundColor: ['#007bff','#28a745','#ffc107','#dc3545']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Number of Patients' } },
+                    x: { title: { display: true, text: 'Hospitals' } }
+                }
+            }
+        });
     </script>
+
 }
